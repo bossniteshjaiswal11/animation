@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnetic Hover Effects</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card" style="--clr:#ff6464;">1</div>
+        <div class="card" style="--clr:#64c0ff;">2</div>
+        <div class="card" style="--clr:#48e365;">3</div>
+        <div class="card" style="--clr:#cb4af7;">4</div>
+    </div>
+    <script>
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const transX = (x - rect.width / 2) / 5; // Adjust intensity with divisor
+                const transY = (y - rect.height / 2) / 5;
+
+                card.style.transform = `translate(${transX}px, ${transY}px)`;
+                card.style.boxShadow = `${transX}px ${transY}px 15px rgba(0, 0, 0, 0.2)`;
+            });
+
+            card.addEventListener('mouseout', () => {
+                card.style.transform = 'translate(0, 0)';
+                card.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
