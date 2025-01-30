@@ -5,12 +5,16 @@ let listHTML = document.querySelector('.carousel .list');
 let seeMoreButtons = document.querySelectorAll('.seeMore');
 let backButton = document.getElementById('back');
 
-nextButton.onclick = function(){
+// Initially hide the Go Back button
+backButton.style.display = 'none';
+
+nextButton.onclick = function() {
     showSlider('next');
 }
-prevButton.onclick = function(){
+prevButton.onclick = function() {
     showSlider('prev');
 }
+
 let unAcceppClick;
 const showSlider = (type) => {
     nextButton.style.pointerEvents = 'none';
@@ -18,25 +22,33 @@ const showSlider = (type) => {
 
     carousel.classList.remove('next', 'prev');
     let items = document.querySelectorAll('.carousel .list .item');
-    if(type === 'next'){
+    if (type === 'next') {
         listHTML.appendChild(items[0]);
         carousel.classList.add('next');
-    }else{
+    } else {
         listHTML.prepend(items[items.length - 1]);
         carousel.classList.add('prev');
     }
     clearTimeout(unAcceppClick);
-    unAcceppClick = setTimeout(()=>{
+    unAcceppClick = setTimeout(() => {
         nextButton.style.pointerEvents = 'auto';
         prevButton.style.pointerEvents = 'auto';
-    }, 2000)
+    }, 2000);
 }
+
 seeMoreButtons.forEach((button) => {
-    button.onclick = function(){
+    button.onclick = function() {
         carousel.classList.remove('next', 'prev');
         carousel.classList.add('showDetail');
+
+        // Show the Go Back button when See More is clicked
+        backButton.style.display = 'block';
     }
 });
-backButton.onclick = function(){
+
+backButton.onclick = function() {
     carousel.classList.remove('showDetail');
-}
+
+    // Hide the Go Back button when it's clicked
+    backButton.style.display = 'none';
+};
